@@ -41,7 +41,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    enum: ["Tenant", "Landlord"],
+    enum: ["tenant", "landlord"],
   },
   address: {
     type: String,

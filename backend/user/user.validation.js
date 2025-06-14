@@ -18,6 +18,6 @@ export const registerUserSchema = yup.object({
     .trim()
     .lowercase()
     .oneOf(["male", "female", "others"]),
-  role: yup.string().required().lowercase().oneOf(["Tenant", "Landlord"]),
+  role: yup.string().required().lowercase().oneOf(["tenant", "landlord"]),
   address: yup.string().required().trim().lowercase(),
 });
