@@ -16,6 +16,7 @@ import { useQuery } from "@tanstack/react-query";
 import axiosInstance from "@/lib/axios.instance";
 import { useParams, useRouter } from "next/navigation";
 import TenantDetailButtons from "./TenantDetailButtons";
+import AddToPropertyBasket from "./PropertyBasket/AddToPropertyBasket";
 
 export interface IPropertyDetails {
   title: string;
@@ -185,6 +186,7 @@ const PropertyDetailSection = () => {
           {userRole === "tenant" && (
             <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
               <TenantDetailButtons />
+              <AddToPropertyBasket propertyId={propertyId} />
             </Box>
           )}
         </Box>

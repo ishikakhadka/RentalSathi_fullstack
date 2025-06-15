@@ -16,6 +16,7 @@ const TenantNavbar = () => {
     logoutBg: "#8E3B30", // Deep Earth Red
     logoutText: "#FAF3E0", // Cream White
   };
+
   const logOut = () => {
     localStorage.clear();
     router.replace("/login");
@@ -34,7 +35,7 @@ const TenantNavbar = () => {
       className="fixed top-0 w-full shadow-lg z-50"
       style={{ backgroundColor: colors.bgColor }}
     >
-      <div className="container mx-auto flex justify-between items-center p-5">
+      <div className="container mx-auto flex justify-around items-center p-5">
         {/* Brand */}
         <div
           className="flex items-center gap-3 cursor-pointer"
@@ -62,7 +63,7 @@ const TenantNavbar = () => {
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex gap-8">
-          {["home", "about", "rooms", "services", "contact"].map((item) => (
+          {["home", "about", "rooms", "services"].map((item) => (
             <li key={item}>
               <button
                 onClick={() => handleNavigate(`/tenant/${item}`)}
@@ -88,9 +89,9 @@ const TenantNavbar = () => {
           ))}
         </ul>
 
-        {/* Desktop-only Buttons */}
+        {/* Desktop Buttons */}
         <div className="hidden md:flex items-center gap-6">
-          <button>
+          <button onClick={() => handleNavigate("/tenant/property-basket")}>
             <HouseIcon sx={{ color: "#A45A52", fontSize: "2rem" }} />
             <h6 style={{ color: "#A45A52", fontSize: "15px" }}>
               Property Basket
@@ -130,7 +131,7 @@ const TenantNavbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu Items */}
+      {/* Mobile Menu */}
       {isMenuOpen && (
         <ul
           className="flex flex-col items-center gap-6 p-6 md:hidden"
@@ -161,9 +162,9 @@ const TenantNavbar = () => {
             </li>
           ))}
 
-          {/* Mobile-only Property Basket */}
+          {/* Mobile Property Basket */}
           <li>
-            <button>
+            <button onClick={() => handleNavigate("/tenant/property-basket")}>
               <HouseIcon sx={{ color: "#A45A52", fontSize: "2rem" }} />
               <h6 style={{ color: "#A45A52", fontSize: "15px" }}>
                 Property Basket
@@ -171,7 +172,7 @@ const TenantNavbar = () => {
             </button>
           </li>
 
-          {/* Mobile-only Logout */}
+          {/* Mobile Logout */}
           <li>
             <Button
               className="px-5 py-3 rounded-md font-semibold"

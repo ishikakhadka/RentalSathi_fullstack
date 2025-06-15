@@ -1,7 +1,7 @@
 import { Stack } from "@mui/material";
 import React from "react";
 
-const Contact = () => {
+const Footer = () => {
   return (
     <footer
       className="mt-10  text-[#6B4C3B] py-6 text-center"
@@ -38,4 +38,4 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+export default Footer;

@@ -1,23 +1,28 @@
 "use client";
-import { Box, Button } from "@mui/material";
+import { Button } from "@mui/material";
 import { useRouter } from "next/navigation";
 import React from "react";
 
 const AddPropertyButton = () => {
   const router = useRouter();
+
   return (
     <Button
-      type="submit"
       variant="contained"
-      color="secondary"
+      color="success"
       sx={{
-        marginTop: "2rem",
+        mt: 2,
+        px: 4,
+        py: 1.5,
+        fontSize: "1rem",
+        borderRadius: "10px",
+        textTransform: "none",
+        fontWeight: "600",
+        boxShadow: 2,
       }}
-      onClick={() => {
-        router.push("/add-property");
-      }}
+      onClick={() => router.push("/landlord/add-property")}
     >
-      Add Property
+      Add Property.
     </Button>
   );
 };

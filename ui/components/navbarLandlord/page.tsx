@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { use, useState } from "react";
+import toast from "react-hot-toast";
 
 const LandlordNavbar = () => {
   const router = useRouter();

@@ -1,7 +1,8 @@
 "use client";
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const GuestGuard = ({
   children,
@@ -17,6 +18,25 @@ const GuestGuard = ({
     if (accessToken && role) {
       setIsAuthenticated(true);
     }
+    // if (!isAuthenticated) {
+    //   toast((t) => (
+    //     <span>
+    //       Please login first.
+    //       <br />
+    //       <Button
+    //         onClick={() => toast.dismiss(t.id)}
+    //         variant="contained"
+    //         style={{
+    //           backgroundColor: "#6b3f3f",
+    //           display: "flex",
+    //           justifyContent: "center",
+    //         }}
+    //       >
+    //         Dismiss
+    //       </Button>
+    //     </span>
+    //   ));
+    // }
     if (accessToken && role == "tenant") {
       router.replace("/tenant/home");
     } else if (accessToken && role == "landlord") {

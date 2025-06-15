@@ -9,14 +9,14 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import PropertyCard from "./PropertyCard";
+
 import axiosInstance from "@/lib/axios.instance";
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import Image from "next/image";
+import RemoveCard from "./RemoveCard";
+import AddPropertyButton from "../AddPropertyButton";
 import viewproperty from "/public/assets/viewproperty.png";
-import AddPropertyButton from "./AddPropertyButton";
-
 export interface IPropertyList {
   _id: string;
   title: string;
@@ -26,7 +26,7 @@ export interface IPropertyList {
   shortDescription: string;
   category: string;
 }
-const CardContainerLandlord = () => {
+const RemoveContainer = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { isPending, data, error } = useQuery({
     queryKey: ["get-seller-list", currentPage],
@@ -63,7 +63,6 @@ const CardContainerLandlord = () => {
       </div>
     );
   }
-
   return (
     <Stack className="flex flex-col items-center">
       <Box className="min-h-screen px-4 py-8 bg-[#EFD6C0] flex justify-center">
@@ -83,7 +82,7 @@ const CardContainerLandlord = () => {
             variant="subtitle1"
             className="text-center mb-6 text-gray-600"
           >
-            Manage and view all your listed properties here.
+            Delete all your listed properties here.
           </Typography>
 
           <Divider className="mb-6" />
@@ -91,7 +90,7 @@ const CardContainerLandlord = () => {
           <Box className="flex flex-wrap gap-6 justify-center">
             <Box className="flex flex-wrap gap-12 p-8 m-8 justify-center items-center">
               {propertyList.map((item) => {
-                return <PropertyCard key={item._id} {...item} />;
+                return <RemoveCard key={item._id} {...item} />;
               })}
             </Box>
           </Box>
@@ -113,4 +112,4 @@ const CardContainerLandlord = () => {
   );
 };
 
-export default CardContainerLandlord;
+export default RemoveContainer;

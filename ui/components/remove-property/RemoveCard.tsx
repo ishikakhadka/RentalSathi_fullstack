@@ -4,10 +4,11 @@ import Image from "next/image";
 import React, { useState } from "react";
 import villa from "/public/assets/villa.jpg";
 
-import { IPropertyList } from "./CardContainerLandlord";
 import { useRouter } from "next/navigation";
+import { IPropertyList } from "../CardContainerLandlord";
+import DeleteProperty from "../DeletePropertyDialog";
 
-const PropertyCard = (props: IPropertyList) => {
+const RemoveCard = (props: IPropertyList) => {
   const [open, setOpen] = useState<boolean>(false);
   const router = useRouter();
 
@@ -101,22 +102,7 @@ const PropertyCard = (props: IPropertyList) => {
           </Typography>
 
           <Box mt="auto">
-            <Button
-              variant="contained"
-              fullWidth
-              onClick={() => router.push(`/property-details/${props._id}`)}
-              sx={{
-                backgroundColor: "#A0572B",
-                fontWeight: 600,
-                paddingY: 1,
-                color: "#fff",
-                "&:hover": {
-                  backgroundColor: "#803F1D",
-                },
-              }}
-            >
-              View Details
-            </Button>
+            <DeleteProperty propertyId={props._id} />
           </Box>
         </Box>
       </Box>
@@ -124,4 +110,4 @@ const PropertyCard = (props: IPropertyList) => {
   );
 };
 
-export default PropertyCard;
+export default RemoveCard;

@@ -1,5 +1,4 @@
-
-import PropertyDetailSection from "@/components/PropertyDetails.landlord";
+import PropertyDetailSection from "@/components/PropertyDetails";
 import React from "react";
 
 const ViewDetails = () => {
