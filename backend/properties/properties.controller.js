@@ -59,6 +59,7 @@ router.post(
       { $limit: limit },
       {
         $project: {
+          image: 1,
           title: 1,
           location: 1,
           noOfRooms: 1,
@@ -102,6 +103,7 @@ router.post(
       { $limit: limit },
       {
         $project: {
+          image: 1,
           title: 1,
           location: 1,
           noOfRooms: 1,

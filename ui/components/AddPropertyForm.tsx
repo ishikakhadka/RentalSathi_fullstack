@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Formik } from "formik";
+import { Form, Formik } from "formik";
 import Link from "next/link";
 import {
   Box,
@@ -28,6 +28,8 @@ import toast from "react-hot-toast";
 import { PropertySchema } from "@/validation/addPropertySchema";
 import { propertyCategoriesForDropDown } from "@/constant/general.constant";
 import Image from "next/image";
+import { File } from "buffer";
+import axios from "axios";
 
 export interface IAddProperty {
   title: string;
@@ -39,6 +41,7 @@ export interface IAddProperty {
 }
 const AddPropertyForm = () => {
   const [localUrl, setLocalUrl] = useState<string | null>(null);
+  const [image, setImage] = useState<File | null>(null);
   const router = useRouter();
   const { isPending, mutate } = useMutation({
     mutationKey: ["add-property"],
@@ -53,6 +56,23 @@ const AddPropertyForm = () => {
       toast.error("Failed to add property");
     },
   });
+  const HandleImageUploadToCloudinary = async (image: File) => {
+    try {
+      const cloud_name = "dsrdkujjb";
+      const upload_preset = "rental-sathi";
+      const formData = new FormData();
+      formData.append("file", image);
+      formData.append("upload_preset", upload_preset);
+      const res = await axios.post(
+        ` https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
+        formData
+      );
+      return res.data.secure_url;
+    } catch (error) {
+      console.log("error", error);
+      toast.error("Image Upload Failed!!");
+    }
+  };
   return (
     <Box>
       {isPending && <LinearProgress color="success" />}
@@ -67,8 +87,12 @@ const AddPropertyForm = () => {
           description: "",
         }}
         validationSchema={PropertySchema}
-        onSubmit={(values: IAddProperty) => {
-          mutate(values);
+        onSubmit={async (values: IAddProperty) => {
+          let imageUrl = "";
+          if (image) {
+            imageUrl = await HandleImageUploadToCloudinary(image);
+          }
+          mutate({ ...values, image: imageUrl });
         }}
       >
         {(formik) => (
@@ -83,6 +107,10 @@ const AddPropertyForm = () => {
                 alt="Product Image"
                 height={250}
                 width={250}
+                style={{
+                  width: "350px",
+                  objectFit: "cover",
+                }}
               />
             )}
 
@@ -95,6 +123,7 @@ const AddPropertyForm = () => {
                 const image = event.target.files[0];
                 const Url = URL.createObjectURL(image);
                 setLocalUrl(Url);
+                setImage(image);
               }}
             ></input>
             <FormControl fullWidth>

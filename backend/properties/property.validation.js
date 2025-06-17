@@ -8,7 +8,14 @@ export const PropertySchema = yup.object({
     .string()
     .required()
     .trim()
-    .oneOf(["Villa", "Apartment", "Commercial", "Homestay", "Flats"]),
+    .oneOf([
+      "Villa",
+      "Apartment",
+      "Commercial",
+      "Homestay",
+      "Flats",
+      "Warehouse",
+    ]),
 
   description: yup.string().required().trim().min(10).max(1000),
 });

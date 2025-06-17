@@ -18,6 +18,7 @@ import viewproperty from "/public/assets/viewproperty.png";
 import AddPropertyButton from "./AddPropertyButton";
 
 export interface IPropertyList {
+  image?: string;
   _id: string;
   title: string;
   location: string;

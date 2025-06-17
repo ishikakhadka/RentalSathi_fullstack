@@ -12,7 +12,7 @@ const tenant = () => {
   return (
     <div>
       <TenantContainer />
-      <Box className="flex flex-wrap gap-12 justify-center  items-center p-2 m-2">
+      <Box className="flex flex-wrap flex-col gap-12 justify-center  items-center p-2 m-2">
         <Typography
           variant="h4"
           fontWeight="bold"

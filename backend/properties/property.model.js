@@ -29,7 +29,14 @@ const PropertySchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-      enum: ["Villa", "Apartment", "Commercial", "Homestay", "Flats"],
+      enum: [
+        "Villa",
+        "Apartment",
+        "Commercial",
+        "Homestay",
+        "Flats",
+        "Warehouse",
+      ],
     },
     image: {
       type: String,
