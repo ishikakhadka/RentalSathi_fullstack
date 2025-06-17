@@ -9,7 +9,6 @@ const LandlordHome = () => {
     <div>
       <LandlordWelcome />
       <Services />
-      <Contact />
     </div>
   );
 };
