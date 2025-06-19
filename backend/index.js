@@ -8,12 +8,9 @@ import { dirname, join } from "path";
 import connectDB from "./db.connection.js";
 import cors from "cors";
 
-// Get the directory name of the current module
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
 // Configure dotenv to read .env file with absolute path
-dotenv.config({ path: join(__dirname, ".env") });
+// dotenv.config({ path: join(__dirname, ".env") });
+dotenv.config();
 import { userController } from "./user/user.controller.js";
 import { propertyController } from "./properties/properties.controller.js";
 import { cartController } from "./cart/cart.controller.js";
@@ -26,7 +23,8 @@ const FRONTEND_URL = process.env.FRONTEND_URL;
 app.use(
   cors({
     origin: [
-      "https://rental-sathi-fullstack.vercel.app",
+      FRONTEND_URL,
+      // "https://rental-sathi-fullstack.vercel.app",
       "http://localhost:3000",
     ],
     credentials: true, // if you're sending cookies (optional)
@@ -41,3 +39,7 @@ const PORT = 8080;
 app.listen(PORT, () => {
   console.log(`App is listening to  port ${PORT}`);
 });
+
+app.get("/health", (req, res) => {
+  return res.json({ "status": "healthy" });
+})

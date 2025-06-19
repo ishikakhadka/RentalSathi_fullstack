@@ -86,8 +86,8 @@ router.post(
     //payload=> object inside token
 
     const payload = { email: user.email };
-    const secretKey = process.env.secretKey;
-    const token = jwt.sign(payload, secretKey, {
+    const SECRET_KEY = process.env.SECRET_KEY;
+    const token = jwt.sign(payload, SECRET_KEY, {
       expiresIn: "7d",
     });
     user.password = undefined;
