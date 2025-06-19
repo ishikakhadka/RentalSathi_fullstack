@@ -6,17 +6,17 @@ dotenv.config();
 
 const connectDB = async () => {
   try {
-    const url = `mongodb+srv://${process.env.DB_USER_NAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_NAME}?${process.env.DB_OPTION}`;
+    const url = `${process.env.MONGO_DB_URI}`;
 
-    await mongoose.connect(url);
-    console.log("Successfully connected to db");
+    await mongoose.connect(url).then(console.log(`Successfully connected to ${url}`));
+    // console.log("Successfully connected to db");
 
-    console.log("DB connection established...");
+    // console.log("DB connection established...");
   } catch (error) {
     console.log("DB connection failed...");
     console.log(error.message);
     process.exit(1);
   }
 };
-
+connectDB();
 export default connectDB;
