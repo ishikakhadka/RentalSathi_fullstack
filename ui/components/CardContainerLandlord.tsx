@@ -27,29 +27,30 @@ export interface IPropertyList {
   shortDescription: string;
   category: string;
 }
+
 const CardContainerLandlord = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { isPending, data } = useQuery({
     queryKey: ["get-seller-list", currentPage],
     queryFn: async () => {
-      return await axiosInstance.post(
-        "/properties/landlord/list",
-
-        {
-          page: currentPage,
-          limit: 3,
-        }
-      );
+      return await axiosInstance.post("/properties/landlord/list", {
+        page: currentPage,
+        limit: 3,
+      });
     },
   });
+
   const propertyList: IPropertyList[] = data?.data?.Properties ?? [];
   const totalPages: number = data?.data?.totalPages;
+
   if (isPending) {
-    return <CircularProgress color="warning" />;
+    return (
+      <Box className="flex justify-center items-center min-h-screen">
+        <CircularProgress color="warning" />
+      </Box>
+    );
   }
-  // if (error) {
-  //   toast.error(error?.response?.data?.message);
-  // }
+
   if (!data || propertyList.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center mt-10 space-y-4">
@@ -59,7 +60,6 @@ const CardContainerLandlord = () => {
           width={400}
           height={200}
         />
-
         <AddPropertyButton />
       </div>
     );
@@ -67,10 +67,10 @@ const CardContainerLandlord = () => {
 
   return (
     <Stack className="flex flex-col items-center">
-      <Box className="min-h-screen px-4 py-8 bg-[#EFD6C0] flex justify-center">
+      <Box className="min-h-screen px-4 py-8 bg-[#EFD6C0] flex justify-center w-full">
         <Paper
           elevation={3}
-          className="p-4 md:p-10 rounded-xl shadow-md bg-[#EFD6C0] w-[1000px]"
+          className="p-4 md:p-10 rounded-xl shadow-md bg-[#EFD6C0] w-full max-w-screen-xl"
         >
           <Typography
             variant="h4"
@@ -90,10 +90,10 @@ const CardContainerLandlord = () => {
           <Divider className="mb-6" />
 
           <Box className="flex justify-center">
-            <Box className="flex flex-col md:flex-row flex-wrap gap-12 p-8 m-8 justify-center items-center">
-              {propertyList.map((item) => {
-                return <PropertyCard key={item._id} {...item} />;
-              })}
+            <Box className="flex flex-col md:flex-row flex-wrap gap-12 p-4 md:p-8 m-4 justify-center items-center">
+              {propertyList.map((item) => (
+                <PropertyCard key={item._id} {...item} />
+              ))}
             </Box>
           </Box>
         </Paper>

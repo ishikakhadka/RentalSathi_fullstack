@@ -77,10 +77,10 @@ const RemoveContainer = () => {
 
   return (
     <Stack alignItems="center" spacing={4} sx={{ px: 2, py: 4 }}>
-      <Box className="min-h-screen px-4 py-8 bg-[#EFD6C0] flex justify-center">
+      <Box className="min-h-screen px-4 py-8 bg-[#EFD6C0] flex justify-center w-full">
         <Paper
           elevation={3}
-          className="p-4 md:p-10 rounded-xl shadow-md bg-[#EFD6C0] w-[1000px]"
+          className="p-4 md:p-10 rounded-xl shadow-md bg-[#EFD6C0] w-full max-w-screen-xl"
         >
           <Typography
             variant="h4"
@@ -105,10 +105,10 @@ const RemoveContainer = () => {
           <Divider sx={{ mb: 4 }} />
 
           <Box className="flex justify-center">
-            <Box className="flex flex-col md:flex-row flex-wrap gap-12 p-8 m-8 justify-center items-center">
-              {propertyList.map((item) => {
-                return <RemoveCard key={item._id} {...item} />;
-              })}
+            <Box className="flex flex-col md:flex-row flex-wrap gap-12 p-4 md:p-8 m-4 justify-center items-center">
+              {propertyList.map((item) => (
+                <RemoveCard key={item._id} {...item} />
+              ))}
             </Box>
           </Box>
         </Paper>
