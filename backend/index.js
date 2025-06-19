@@ -22,11 +22,14 @@ app.use(express.json());
 
 const FRONTEND_URL = process.env.FRONTEND_URL;
 //registering routes
+
 app.use(
   cors({
-    origin: [FRONTEND_URL, "http://localhost:3000", "http://localhost:3001"],
+    origin: ["https://rental-sathi-fullstack-l4ee.vercel.app"],
+    credentials: true,
   })
 );
+
 await connectDB();
 app.use(userController);
 app.use(propertyController);
