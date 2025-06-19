@@ -1,14 +1,20 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 
-const DB_NAME = process.env.DB_NAME;
-const DB_USER_NAME = process.env.DB_USER_NAME;
-const DB_PASSWORD = process.env.DB_PASSWORD;
-const DB_HOST = process.env.DB_HOST;
-const DB_OPTION = process.env.DB_OPTION;
+// Load environment variables
+dotenv.config();
 
 const connectDB = async () => {
   try {
-    const url = `mongodb+srv://${DB_USER_NAME}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?${DB_OPTION}`;
+    // Debug environment variables
+    console.log("Environment Variables:");
+    console.log("DB_NAME:", process.env.DB_NAME);
+    console.log("DB_USER_NAME:", process.env.DB_USER_NAME);
+    console.log("DB_HOST:", process.env.DB_HOST);
+    console.log("DB_OPTION:", process.env.DB_OPTION);
+
+    const url = `mongodb+srv://${process.env.DB_USER_NAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_NAME}?${process.env.DB_OPTION}`;
+    console.log("Connection URL:", url);
 
     await mongoose.connect(url);
     console.log("Successfully connected to db");
