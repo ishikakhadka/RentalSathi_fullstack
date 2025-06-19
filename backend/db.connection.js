@@ -1,17 +1,17 @@
 import mongoose from "mongoose";
 
-const dbName = process.env.dbName || "rental-sathi";
-const dbUserName = process.env.dbUserName || "ishika";
-const dbPassword = process.env.dbPassword || encodeURIComponent("ishika123");
-const dbHost = process.env.dbHost || "ishika.lk02b.mongodb.net";
-const dbOptions =
-  process.env.dbOptions || "retryWrites=true&w=majority&appName=Ishika";
+const DB_NAME = process.env.DB_NAME;
+const DB_USER_NAME = process.env.DB_USER_NAME;
+const DB_PASSWORD = process.env.DB_PASSWORD;
+const DB_HOST = process.env.DB_HOST;
+const DB_OPTION = process.env.DB_OPTION;
 
 const connectDB = async () => {
   try {
-    const url = `mongodb+srv://${dbUserName}:${dbPassword}@${dbHost}/${dbName}?${dbOptions}`;
+    const url = `mongodb+srv://${DB_USER_NAME}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?${DB_OPTION}`;
 
     await mongoose.connect(url);
+    console.log("Successfully connected to db");
 
     console.log("DB connection established...");
   } catch (error) {
