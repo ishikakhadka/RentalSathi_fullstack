@@ -26,7 +26,7 @@ const RemoveCard = (props: IPropertyList) => {
       >
         <Image
           className="cursor-pointer hover:opacity-90 transition-opacity duration-300"
-          src={villa}
+          src={props.image ? props.image : villa}
           height={200}
           width={400}
           alt={props.title}

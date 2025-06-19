@@ -77,44 +77,41 @@ const RemoveContainer = () => {
 
   return (
     <Stack alignItems="center" spacing={4} sx={{ px: 2, py: 4 }}>
-      <Box
-        sx={{
-          width: "100%",
-          maxWidth: "1200px",
-          backgroundColor: "#EFD6C0",
-          px: { xs: 2, md: 6 },
-          py: { xs: 4, md: 6 },
-          borderRadius: 3,
-          boxShadow: 3,
-        }}
-      >
-        <Typography
-          variant="h4"
-          component="h1"
-          fontWeight="bold"
-          textAlign="center"
-          color="#3E4C3A"
-          mb={1}
+      <Box className="min-h-screen px-4 py-8 bg-[#EFD6C0] flex justify-center">
+        <Paper
+          elevation={3}
+          className="p-4 md:p-10 rounded-xl shadow-md bg-[#EFD6C0] w-[1000px]"
         >
-          My Properties
-        </Typography>
+          <Typography
+            variant="h4"
+            component="h1"
+            fontWeight="bold"
+            textAlign="center"
+            color="#3E4C3A"
+            mb={1}
+          >
+            My Properties
+          </Typography>
 
-        <Typography
-          variant="subtitle1"
-          textAlign="center"
-          color="text.secondary"
-          mb={4}
-        >
-          Delete all your listed properties here.
-        </Typography>
+          <Typography
+            variant="subtitle1"
+            textAlign="center"
+            color="text.secondary"
+            mb={4}
+          >
+            Delete all your listed properties here.
+          </Typography>
 
-        <Divider sx={{ mb: 4 }} />
+          <Divider sx={{ mb: 4 }} />
 
-        <Box display="flex" flexWrap="wrap" justifyContent="center" gap={4}>
-          {propertyList.map((item) => (
-            <RemoveCard key={item._id} {...item} />
-          ))}
-        </Box>
+          <Box className="flex justify-center">
+            <Box className="flex flex-col md:flex-row flex-wrap gap-12 p-8 m-8 justify-center items-center">
+              {propertyList.map((item) => {
+                return <RemoveCard key={item._id} {...item} />;
+              })}
+            </Box>
+          </Box>
+        </Paper>
       </Box>
 
       {totalPages > 0 && (

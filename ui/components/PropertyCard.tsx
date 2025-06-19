@@ -31,6 +31,7 @@ const PropertyCard = (props: IPropertyList) => {
           height={200}
           width={400}
           alt={props.title}
+          priority
         />
 
         <Box
