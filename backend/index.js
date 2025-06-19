@@ -40,6 +40,6 @@ app.listen(PORT, () => {
   console.log(`App is listening to  port ${PORT}`);
 });
 
-app.post("/health", (req, res) => {
+app.get("/health", (req, res) => {
   return res.json({ "status": "healthy" });
 })
