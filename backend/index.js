@@ -26,11 +26,10 @@ const FRONTEND_URL = process.env.FRONTEND_URL;
 app.use(
   cors({
     origin: [
-      // "https://rental-sathi-fullstack-l4ee.vercel.app",
-      "https://rental-sathi-fullstack.vercel.app/",
+      "https://rental-sathi-fullstack.vercel.app",
       "http://localhost:3000",
     ],
-    credentials: true,
+    credentials: true, // if you're sending cookies (optional)
   })
 );
 
