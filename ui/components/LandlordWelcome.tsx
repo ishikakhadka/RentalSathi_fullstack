@@ -16,15 +16,19 @@ const LandlordWelcome = () => {
       <div className="h-[80px]"></div>
       <div className="flex justify-around">
         <div className="w-50vw">
-          <h1 className="text-amber-800 font-bold text-3xl text-center p-10">
+          <h1
+            className="font-bold text-xl sm:text-2xl md:text-3xl text-center p-4 md:p-10"
+            style={{ color: "#A45A52" }}
+          >
             <Typewriter
               options={{
                 strings: [
-                  "Welcome to RentalSathi.<br/>साथी by name, Support by nature.",
+                  "Welcome to RentalSathi. <br/>साथी by name, Support by nature.",
                 ],
                 autoStart: true,
                 loop: true,
                 delay: 30,
+                // deleteSpeed: 30,
               }}
             />
           </h1>
