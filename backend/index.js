@@ -7,10 +7,11 @@ import { cartController } from "./cart/cart.controller.js";
 const app = express();
 app.use(express.json());
 
+const FRONTEND_URL = process.env.FRONTEND_URL;
 //registering routes
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://localhost:3001"],
+    origin: [FRONTEND_URL, "http://localhost:3000", "http://localhost:3001"],
   })
 );
 await connectDB();
