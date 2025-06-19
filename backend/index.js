@@ -27,7 +27,7 @@ app.use(
   cors({
     origin: [
       "https://rental-sathi-fullstack-l4ee.vercel.app",
-      "https://rental-sathi-fullstack-l4ee-9yqzjrvj2-ishika-khadkas-projects.vercel.app/",
+      "https://rental-sathi-fullstack.vercel.app/",
       "http://localhost:3000",
     ],
     credentials: true,
