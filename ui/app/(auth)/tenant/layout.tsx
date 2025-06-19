@@ -30,14 +30,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      style={{
+        backgroundColor: "#DDE4D0", // ✅ fix background for html
+        margin: 0,
+        padding: 0,
+      }}
+    >
       <body
         style={{
-          background: "#DDE4D0",
-
+          backgroundColor: "#DDE4D0", // ✅ match with html
+          margin: 0,
+          padding: 0,
           minHeight: "100vh",
         }}
-        className={`${geistSans.variable} ${geistMono.variable} antialiased `}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ReactQueryClientProvider>
           <Toaster />

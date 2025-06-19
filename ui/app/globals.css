@@ -20,6 +20,12 @@
     /* --foreground: #0a0a0a; */
   }
 }
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #fceee4; /* Or whatever your navbar background is */
+}
 
 body {
   justify-content: center;
