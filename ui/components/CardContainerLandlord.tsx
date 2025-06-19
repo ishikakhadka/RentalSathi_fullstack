@@ -12,7 +12,7 @@ import React, { useState } from "react";
 import PropertyCard from "./PropertyCard";
 import axiosInstance from "@/lib/axios.instance";
 import { useQuery } from "@tanstack/react-query";
-import toast from "react-hot-toast";
+
 import Image from "next/image";
 import viewproperty from "/public/assets/viewproperty.png";
 import AddPropertyButton from "./AddPropertyButton";
@@ -29,7 +29,7 @@ export interface IPropertyList {
 }
 const CardContainerLandlord = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const { isPending, data, error } = useQuery({
+  const { isPending, data } = useQuery({
     queryKey: ["get-seller-list", currentPage],
     queryFn: async () => {
       return await axiosInstance.post(

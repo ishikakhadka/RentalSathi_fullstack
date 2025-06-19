@@ -1,7 +1,6 @@
 "use client";
 import { Box, CircularProgress, Pagination, Stack } from "@mui/material";
 import React, { useState } from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import PropertyCard from "./PropertyCard";
 import axiosInstance from "@/lib/axios.instance";

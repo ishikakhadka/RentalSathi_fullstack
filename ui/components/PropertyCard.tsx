@@ -1,14 +1,12 @@
 "use client";
-import { Box, Button, Chip, Stack, Typography } from "@mui/material";
+import { Box, Button, Chip, Typography } from "@mui/material";
 import Image from "next/image";
-import React, { useState } from "react";
-import villa from "/public/assets/villa.jpg";
+import React from "react";
 
 import { IPropertyList } from "./CardContainerLandlord";
 import { useRouter } from "next/navigation";
 
 const PropertyCard = (props: IPropertyList) => {
-  const [open, setOpen] = useState<boolean>(false);
   const router = useRouter();
 
   return (

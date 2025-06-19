@@ -1,8 +1,7 @@
 import { Box, Button } from "@mui/material";
 import React from "react";
 import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
-import HouseIcon from "@mui/icons-material/House";
-import AddToPropertyBasket from "./PropertyBasket/AddToPropertyBasket";
+
 const TenantDetailButtons = () => {
   return (
     <Box sx={{ display: "flex", gap: 3 }}>

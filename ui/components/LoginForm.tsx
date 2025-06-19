@@ -137,7 +137,7 @@ const LoginForm = () => {
                 href="/register"
                 className="text-center text-sm text-[#9e2828] font-semibold"
               >
-                Don't have an account? Sign up here.
+                Don&apos;t have an account? Sign up here.
               </Link>
             </div>
           </form>

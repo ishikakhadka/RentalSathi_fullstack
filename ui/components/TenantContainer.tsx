@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import Navbar from "./navbar/page";
+
 import {
   Box,
   FormControl,
@@ -48,7 +48,7 @@ const TenantContainer = () => {
           gutterBottom
           sx={{ userSelect: "none" }}
         >
-          LET'S FIND YOUR <br />
+          LET&apos;S FIND YOUR <br />
           DREAM HOME.
         </Typography>
 

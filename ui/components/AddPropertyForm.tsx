@@ -1,22 +1,17 @@
 "use client";
 
 import React, { useState } from "react";
-import { Form, Formik } from "formik";
-import Link from "next/link";
+import { Formik } from "formik";
+
 import {
   Box,
   Button,
   FormControl,
-  FormControlLabel,
   FormHelperText,
-  FormLabel,
   InputLabel,
   LinearProgress,
   MenuItem,
-  Radio,
-  RadioGroup,
   Select,
-  Stack,
   TextField,
   Typography,
 } from "@mui/material";
@@ -28,10 +23,10 @@ import toast from "react-hot-toast";
 import { PropertySchema } from "@/validation/addPropertySchema";
 import { propertyCategoriesForDropDown } from "@/constant/general.constant";
 import Image from "next/image";
-import { File } from "buffer";
 import axios from "axios";
 
 export interface IAddProperty {
+  image?: string;
   title: string;
   location: string;
   price: number;

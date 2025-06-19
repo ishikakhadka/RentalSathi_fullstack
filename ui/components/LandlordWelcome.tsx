@@ -7,7 +7,6 @@ import OtherHousesOutlinedIcon from "@mui/icons-material/OtherHousesOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import RemoveCircleOutlinedIcon from "@mui/icons-material/RemoveCircleOutlined";
 import { useRouter } from "next/navigation";
-import LandlordNavbar from "./navbarLandlord/page";
 
 const LandlordWelcome = () => {
   const router = useRouter();

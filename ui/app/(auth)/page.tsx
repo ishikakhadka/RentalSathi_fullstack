@@ -1,9 +1,6 @@
 import React from "react";
 import LoginForm from "@/components/LoginForm";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import { Container, Box, Typography } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
 import PersonIcon from "@mui/icons-material/Person";
@@ -15,67 +12,85 @@ const Home = () => {
       sx={{
         minHeight: "100vh",
         background: "linear-gradient(to right, #fdf6f0, #f8e4d3)",
-        display: "flex",
-        alignItems: "center",
         py: 8,
       }}
     >
       <Container maxWidth="lg">
-        <Grid container spacing={6} alignItems="center">
-          {/* Left Section: Welcome + Icons */}
-          <Grid item xs={12} md={6} component="div">
-            <Box>
-              <Typography
-                variant="h2"
-                fontWeight="bold"
-                gutterBottom
-                sx={{ color: "#6b3f3f" }}
-              >
-                Welcome to Rentalसाथी
-              </Typography>
-              <Typography
-                variant="h6"
-                color="text.secondary"
-                mb={4}
-                sx={{ color: "#4e3b30" }}
-              >
-                A simpler, smarter way to rent or manage your property.
-              </Typography>
+        {/* Flex container for 2 columns */}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" }, // column on small, row on md+
+            gap: 6,
+            alignItems: "center",
+          }}
+        >
+          {/* Left Section */}
+          <Box
+            sx={{
+              flex: 1,
+              minWidth: 0,
+            }}
+          >
+            <Typography
+              variant="h2"
+              fontWeight="bold"
+              gutterBottom
+              sx={{ color: "#6b3f3f" }}
+            >
+              Welcome to Rentalसाथी
+            </Typography>
+            <Typography variant="h6" mb={4} sx={{ color: "#4e3b30" }}>
+              A simpler, smarter way to rent or manage your property.
+            </Typography>
 
-              <Grid container spacing={2}>
-                <Grid item xs={6} component="div">
-                  <Box display="flex" alignItems="center" gap={1}>
-                    <HomeIcon sx={{ color: "#d66f4a" }} />
-                    <Typography>Find Rentals</Typography>
-                  </Box>
-                </Grid>
-                <Grid item xs={6} component="div">
-                  <Box display="flex" alignItems="center" gap={1}>
-                    <MeetingRoomIcon sx={{ color: "#d66f4a" }} />
-                    <Typography>List Property</Typography>
-                  </Box>
-                </Grid>
-                <Grid item xs={6} component="div">
-                  <Box display="flex" alignItems="center" gap={1}>
-                    <PersonIcon sx={{ color: "#d66f4a" }} />
-                    <Typography>Tenant or Landlord</Typography>
-                  </Box>
-                </Grid>
-                <Grid item xs={6} component="div">
-                  <Box display="flex" alignItems="center" gap={1}>
-                    <SupportAgentIcon sx={{ color: "#d66f4a" }} />
-                    <Typography>Get Support</Typography>
-                  </Box>
-                </Grid>
-              </Grid>
+            {/* Icons list in 2-column flexbox */}
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 2,
+              }}
+            >
+              {[
+                {
+                  icon: <HomeIcon sx={{ color: "#d66f4a" }} />,
+                  label: "Find Rentals",
+                },
+                {
+                  icon: <MeetingRoomIcon sx={{ color: "#d66f4a" }} />,
+                  label: "List Property",
+                },
+                {
+                  icon: <PersonIcon sx={{ color: "#d66f4a" }} />,
+                  label: "Tenant or Landlord",
+                },
+                {
+                  icon: <SupportAgentIcon sx={{ color: "#d66f4a" }} />,
+                  label: "Get Support",
+                },
+              ].map(({ icon, label }) => (
+                <Box
+                  key={label}
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 1,
+                    width: { xs: "100%", sm: "calc(50% - 8px)" }, // 2 columns on sm+, full width on xs
+                  }}
+                >
+                  {icon}
+                  <Typography>{label}</Typography>
+                </Box>
+              ))}
             </Box>
-          </Grid>
+          </Box>
 
-          {/* Right Section: Login Form only, no extra box or typography */}
-          <Grid item xs={12} md={6} component="div">
+          {/* Right Section */}
+          <Box sx={{ flex: 1, minWidth: 0 }}>
             <LoginForm />
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
       </Container>
     </Box>
   );

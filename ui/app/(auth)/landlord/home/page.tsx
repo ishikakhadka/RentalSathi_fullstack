@@ -1,4 +1,3 @@
-import Contact from "@/components/Footer";
 import LandlordWelcome from "@/components/LandlordWelcome";
 import Services from "@/components/Services";
 

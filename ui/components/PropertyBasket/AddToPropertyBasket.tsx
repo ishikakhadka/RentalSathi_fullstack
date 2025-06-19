@@ -14,7 +14,7 @@ const AddToPropertyBasket = (props: Props) => {
   const router = useRouter();
   const { isPending, mutate } = useMutation({
     mutationKey: ["add-to-property-basket"],
-    mutationFn: async (values: { productId: string }) => {
+    mutationFn: async (values: { propertyId: string }) => {
       return await axiosInstance.post("cart/property/add", values);
     },
     onSuccess: (res: IResponse) => {

@@ -20,7 +20,7 @@ import { useMutation } from "@tanstack/react-query";
 import { Formik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React from "react";
 import toast from "react-hot-toast";
 
 // ✅ Moved interface to the top
@@ -38,7 +38,7 @@ interface IRegisterForm {
 const RegisterForm = () => {
   const router = useRouter();
 
-  const { isPending, mutate, error } = useMutation({
+  const { isPending, mutate } = useMutation({
     mutationKey: ["register-user"],
     mutationFn: async (values: IRegisterForm) => {
       return await axiosInstance.post("/user/register", values);

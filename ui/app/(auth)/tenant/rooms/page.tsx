@@ -1,12 +1,9 @@
 import React from "react";
-import AddProduct from "../../landlord/add-property/page";
 
-import PropertyCard from "@/components/PropertyCard";
-import { Box, Pagination, Typography } from "@mui/material";
-import AddPropertyButton from "@/components/AddPropertyButton";
 // import CardContainer from "@/components/CardContainer";
 import TenantContainer from "@/components/TenantContainer";
 import CardContainerTenant from "@/components/CardContainerTenant";
+import { Box, Typography } from "@mui/material";
 
 const tenant = () => {
   return (

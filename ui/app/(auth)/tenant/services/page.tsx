@@ -1,4 +1,3 @@
-import Navbar from "@/components/navbar/page";
 import Services from "@/components/Services";
 import React from "react";
 

@@ -1,12 +1,12 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
-import { Box, Button, Typography } from "@mui/material";
+
+import { Box, CircularProgress, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import villa from "/public/assets/villa.jpg";
-import { IBasketItem, IProperty } from "./PropertyBasketContainer";
+import { IBasketItem } from "./PropertyBasketContainer";
 import { useMutation } from "@tanstack/react-query";
 import axiosInstance from "@/lib/axios.instance";
 import { IResponse } from "@/interface/response.interface";
@@ -32,6 +32,9 @@ const PropertyBasketPage = (props: IBasketItem) => {
     // Navigate to property detail page with property ID
     router.push(`/property-details/${props.property._id}`);
   };
+  if (isPending) {
+    return <CircularProgress />;
+  }
   return (
     <>
       {/* Property Card */}

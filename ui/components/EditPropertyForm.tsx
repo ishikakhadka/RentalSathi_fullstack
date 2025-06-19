@@ -1,5 +1,5 @@
 "use client";
-import React, { use } from "react";
+import React from "react";
 import { Formik } from "formik";
 import {
   Box,
@@ -30,17 +30,21 @@ const EditPropertyForm = () => {
   const params = useParams();
   const propertyId = params.id;
   const router = useRouter();
-  const { isPending: editPending, mutate } = useMutation<IResponse, IError>({
+  const { isPending: editPending, mutate } = useMutation<
+    IResponse,
+    IError,
+    IAddProperty
+  >({
     mutationKey: ["edit-product"],
-    mutationFn: async (values) => {
+    mutationFn: async (values: IAddProperty) => {
       return await axiosInstance.put(`/properties/edit/${propertyId}`, values);
     },
     onSuccess: (res) => {
       toast.success(res.data?.message);
       router.push(`/common/property-details/${propertyId}`);
     },
-    onError: (response) => {
-      toast.error(response.data?.message);
+    onError: (error) => {
+      toast.error(error?.response?.data?.message || "Failed to edit property");
     },
   });
   const { isPending, data } = useQuery<IPropertyDetailResponse, IError>({
@@ -54,6 +58,9 @@ const EditPropertyForm = () => {
   });
   if (isPending) {
     return <CircularProgress />;
+  }
+  if (editPending) {
+    return <LinearProgress />;
   }
 
   return (
