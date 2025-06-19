@@ -6,9 +6,9 @@ dotenv.config();
 
 const connectDB = async () => {
   try {
-    const url = `${process.env.MONGO_DB_URI}`;
+    const url = `${process.env.MONGO_DB_ISHIKA}`;
 
-    await mongoose.connect(url).then(console.log(`Successfully connected to ${url}`));
+    await mongoose.connect(url).then(console.log(`Successfully connected to db`));
     // console.log("Successfully connected to db");
 
     // console.log("DB connection established...");
