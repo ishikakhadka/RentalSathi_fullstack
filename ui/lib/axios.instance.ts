@@ -2,7 +2,7 @@ import axios from "axios";
 import { access } from "fs";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: process.env.API_URL,
   timeout: 5000,
 });
 
