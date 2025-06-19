@@ -10,6 +10,7 @@ import cors from "cors";
 
 // Configure dotenv to read .env file with absolute path
 // dotenv.config({ path: join(__dirname, ".env") });
+dotenv.config();
 import { userController } from "./user/user.controller.js";
 import { propertyController } from "./properties/properties.controller.js";
 import { cartController } from "./cart/cart.controller.js";
