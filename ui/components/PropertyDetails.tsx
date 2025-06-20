@@ -91,13 +91,15 @@ const PropertyDetailSection = () => {
             alignItems: "center",
           }}
         >
-          <Image
-            src={villa}
-            height={280}
-            width={380}
-            alt="Property Image"
-            className="rounded-2xl hover:opacity-90 transition-opacity duration-300 ease-in-out shadow-md"
-          />
+          {propertyDetails.image ? (
+            <Image
+              src={propertyDetails.image}
+              height={280}
+              width={380}
+              alt="Property Image"
+              className="rounded-2xl hover:opacity-90 transition-opacity duration-300 ease-in-out shadow-md"
+            />
+          ) : null}
         </Box>
 
         <Box
