@@ -3,7 +3,9 @@
 import { IError } from "@/interface/error.interface";
 import { RegisterUserResponse } from "@/interface/register.interface";
 import axiosInstance from "@/lib/axios.instance";
-// import registerUserSchema from "@/validation/registerUserSchema"; // <- Temporarily disabled for testing
+
+import registerUserSchema from "@/validation/registerUserSchema";
+
 import {
   Button,
   CircularProgress,
@@ -23,7 +25,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import toast from "react-hot-toast";
 
-// ✅ Moved interface to the top
+// ✅ Move this interface outside for consistency
 interface IRegisterForm {
   firstName: string;
   lastName: string;
@@ -44,8 +46,8 @@ const RegisterForm = () => {
       return await axiosInstance.post("/user/register", values);
     },
     onSuccess: (res: RegisterUserResponse) => {
-      toast.success(res?.data.message);
-      router.push("/");
+      toast.success(res?.data.message || "Registered successfully");
+      router.push("/login");
     },
     onError: (error: IError) => {
       toast.error(error?.response?.data?.message || "Registration failed");
@@ -72,9 +74,8 @@ const RegisterForm = () => {
         role: "",
         gender: "",
       }}
-      // validationSchema={registerUserSchema} // <- Re-enable after testing
+      validationSchema={registerUserSchema}
       onSubmit={(values: IRegisterForm) => {
-        console.log("Submitting values:", values);
         mutate(values);
       }}
     >
@@ -86,86 +87,131 @@ const RegisterForm = () => {
         >
           <Typography variant="h5">Register</Typography>
 
+          {/* First Name */}
           <FormControl fullWidth>
             <TextField
               label="First Name"
-              {...formik.getFieldProps("firstName")}
+              name="firstName"
+              value={formik.values.firstName}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
             {formik.touched.firstName && formik.errors.firstName && (
               <FormHelperText error>{formik.errors.firstName}</FormHelperText>
             )}
           </FormControl>
 
+          {/* Last Name */}
           <FormControl fullWidth>
             <TextField
               label="Last Name"
-              {...formik.getFieldProps("lastName")}
+              name="lastName"
+              value={formik.values.lastName}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
             {formik.touched.lastName && formik.errors.lastName && (
               <FormHelperText error>{formik.errors.lastName}</FormHelperText>
             )}
           </FormControl>
 
+          {/* Email */}
           <FormControl fullWidth>
-            <TextField label="Email" {...formik.getFieldProps("email")} />
+            <TextField
+              label="Email"
+              name="email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
             {formik.touched.email && formik.errors.email && (
               <FormHelperText error>{formik.errors.email}</FormHelperText>
             )}
           </FormControl>
 
+          {/* Password */}
           <FormControl fullWidth>
             <TextField
-              type="password"
               label="Password"
-              {...formik.getFieldProps("password")}
+              name="password"
+              type="password"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
             {formik.touched.password && formik.errors.password && (
               <FormHelperText error>{formik.errors.password}</FormHelperText>
             )}
           </FormControl>
 
+          {/* DOB */}
           <FormControl fullWidth>
             <TextField
               label="DOB"
+              name="dob"
               type="date"
-              {...formik.getFieldProps("dob")}
               InputLabelProps={{ shrink: true }}
+              value={formik.values.dob}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
             {formik.touched.dob && formik.errors.dob && (
               <FormHelperText error>{formik.errors.dob}</FormHelperText>
             )}
           </FormControl>
 
+          {/* Address */}
           <FormControl fullWidth>
-            <TextField label="Address" {...formik.getFieldProps("address")} />
+            <TextField
+              label="Address"
+              name="address"
+              value={formik.values.address}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
             {formik.touched.address && formik.errors.address && (
               <FormHelperText error>{formik.errors.address}</FormHelperText>
             )}
           </FormControl>
 
+          {/* Gender */}
           <FormControl fullWidth>
             <InputLabel>Gender</InputLabel>
-            <Select {...formik.getFieldProps("gender")} label="Gender">
-              <MenuItem value={"female"}>Female</MenuItem>
-              <MenuItem value={"male"}>Male</MenuItem>
-              <MenuItem value={"others"}>Other</MenuItem>
+            <Select
+              name="gender"
+              label="Gender"
+              value={formik.values.gender}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            >
+              <MenuItem value="female">Female</MenuItem>
+              <MenuItem value="male">Male</MenuItem>
+              <MenuItem value="others">Other</MenuItem>
             </Select>
             {formik.touched.gender && formik.errors.gender && (
               <FormHelperText error>{formik.errors.gender}</FormHelperText>
             )}
           </FormControl>
 
+          {/* Role */}
           <FormControl fullWidth>
             <InputLabel>Role</InputLabel>
-            <Select {...formik.getFieldProps("role")} label="Role">
-              <MenuItem value={"tenant"}>Tenant</MenuItem>
-              <MenuItem value={"landlord"}>Landlord</MenuItem>
+            <Select
+              name="role"
+              label="Role"
+              value={formik.values.role}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            >
+              <MenuItem value="buyer">Buyer</MenuItem>
+              <MenuItem value="seller">Seller</MenuItem>
             </Select>
             {formik.touched.role && formik.errors.role && (
               <FormHelperText error>{formik.errors.role}</FormHelperText>
             )}
           </FormControl>
 
+          {/* Buttons */}
           <Stack className="p-3 gap-2 w-full justify-center items-center">
             <Button
               fullWidth
@@ -175,7 +221,7 @@ const RegisterForm = () => {
             >
               Register
             </Button>
-            <Link href="/" className="text-purple-800">
+            <Link href="/login" className="text-purple-800">
               Already a user? Login.
             </Link>
           </Stack>
