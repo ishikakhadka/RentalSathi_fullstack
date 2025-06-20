@@ -34,7 +34,7 @@ const TenantWelcome = () => {
 
   const handleNavigate = (type: string) => {
     if (type) {
-      router.push(`/search?type=${type}`);
+      router.push(`/tenant/category/${type}`);
     }
   };
 
@@ -81,7 +81,7 @@ const TenantWelcome = () => {
               }}
             >
               <Box
-                onClick={() => handleNavigate("apartment")}
+                onClick={() => handleNavigate("Apartment")}
                 sx={{
                   ...iconBoxStyle,
                   "&:hover": {
@@ -100,7 +100,7 @@ const TenantWelcome = () => {
               </Box>
 
               <Box
-                onClick={() => handleNavigate("villa")}
+                onClick={() => handleNavigate("Villa")}
                 sx={{
                   ...iconBoxStyle,
                   "&:hover": {
@@ -119,7 +119,7 @@ const TenantWelcome = () => {
               </Box>
 
               <Box
-                onClick={() => handleNavigate("flat")}
+                onClick={() => handleNavigate("Flats")}
                 sx={{
                   ...iconBoxStyle,
                   "&:hover": {
@@ -138,7 +138,7 @@ const TenantWelcome = () => {
               </Box>
 
               <Box
-                onClick={() => handleNavigate("warehouse")}
+                onClick={() => handleNavigate("Warehouse")}
                 sx={{
                   ...iconBoxStyle,
                   "&:hover": {
@@ -157,7 +157,7 @@ const TenantWelcome = () => {
               </Box>
 
               <Box
-                onClick={() => handleNavigate("commercial")}
+                onClick={() => handleNavigate("Commercial")}
                 sx={{
                   ...iconBoxStyle,
                   "&:hover": {

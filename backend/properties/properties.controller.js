@@ -182,4 +182,54 @@ router.put(
   }
 );
 
+//get property by category
+router.post(
+  "/property/tenant/category-list/:category",
+  isTenant,
+  validateReqBody(paginationSchema),
+  async (req, res, next) => {
+    try {
+      const page = parseInt(req.body.page) || 1;
+      const limit = parseInt(req.body.limit) || 10;
+      const skip = (page - 1) * limit;
+
+      const category = req.params.category;
+
+      // Count total properties in this category
+      const totalItems = await PropertyTable.countDocuments({ category });
+
+      // Calculate total pages
+      const totalPages = Math.ceil(totalItems / limit);
+
+      // Aggregate properties with pagination and projection
+      const properties = await PropertyTable.aggregate([
+        { $match: { category } },
+        { $skip: skip },
+        { $limit: limit },
+        {
+          $project: {
+            landlord_id: 1,
+            _id: 1,
+            title: 1,
+            price: 1,
+            noOfRooms: 1,
+            category: 1,
+            image: 1,
+            location: 1,
+            shortDescription: { $substr: ["$description", 0, 150] },
+          },
+        },
+      ]);
+
+      res.status(200).send({
+        message: "Property list",
+        propertyList: properties,
+        totalPages,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 export { router as propertyController };

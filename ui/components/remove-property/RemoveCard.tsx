@@ -11,13 +11,11 @@ const RemoveCard = (props: IPropertyList) => {
   return (
     <>
       <Box
-        className="w-[350px] h-[500px] rounded-xl transition-all duration-300 overflow-hidden"
+        className="w-[350px] h-[500px] rounded-xl transition-all duration-300 overflow-hidden flex flex-col"
         sx={{
           backgroundColor: "#fffaf5",
           border: "1px solid #f1e4d1",
           boxShadow: "0 4px 12px rgba(191, 151, 111, 0.15)",
-          display: "flex",
-          flexDirection: "column",
           "&:hover": {
             transform: "translateY(-6px)",
             boxShadow: "0 10px 20px rgba(191, 151, 111, 0.25)",
@@ -26,21 +24,23 @@ const RemoveCard = (props: IPropertyList) => {
       >
         <Image
           className="cursor-pointer hover:opacity-90 transition-opacity duration-300"
-          src={props.image ? props.image : villa}
+          src={props.image ? props.image : ""}
           height={200}
           width={400}
           alt={props.title}
+          priority
         />
 
         <Box
-          className="p-4 flex flex-col h-full"
+          className="p-4 flex flex-col flex-grow"
           sx={{
-            flexGrow: 1,
             display: "flex",
             flexDirection: "column",
+            flexGrow: 1,
+            minHeight: 0,
           }}
         >
-          <Box className="flex justify-between items-center mb-2">
+          <Box className="flex justify-between items-start mb-2">
             <Typography
               variant="h6"
               className="font-semibold"
@@ -65,14 +65,12 @@ const RemoveCard = (props: IPropertyList) => {
               ${props.price}
             </span>
           </Typography>
-
           <Typography variant="body2" sx={{ color: "#7F4F24", mb: 0.5 }}>
             No. of rooms:
             <span className="ml-1 text-[#D17C25] font-medium">
               {props.noOfRooms}
             </span>
           </Typography>
-
           <Typography variant="body2" sx={{ color: "#7F4F24", mb: 1 }}>
             Location:
             <span className="ml-1 text-[#D17C25] font-medium">
