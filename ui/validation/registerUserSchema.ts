@@ -48,7 +48,7 @@ export const registerUserSchema = yup.object({
     .string()
     .required("Role is required")
     .lowercase()
-    .oneOf(["Tenant", "Landlord"], "Role must be 'Tenant' or 'Landlord'"),
+    .oneOf(["tenant", "landlord"], "Role must be 'Tenant' or 'Landlord'"),
 
   address: yup.string().required("Address is required").trim().lowercase(),
 });
