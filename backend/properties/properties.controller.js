@@ -272,12 +272,12 @@ router.post(
         {
           $project: {
             _id: 1,
-            name: 1,
-            brand: 1,
+            title: 1,
+            category: 1,
             price: 1,
-            quantity: 1,
+            noOfRooms: 1,
             image: 1,
-            seller_id: 1,
+
             shortDescription: { $substr: ["$description", 0, 150] },
           },
         },
