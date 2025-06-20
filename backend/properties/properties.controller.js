@@ -277,6 +277,7 @@ router.post(
             price: 1,
             noOfRooms: 1,
             image: 1,
+            location: 1,
 
             shortDescription: { $substr: ["$description", 0, 150] },
           },
