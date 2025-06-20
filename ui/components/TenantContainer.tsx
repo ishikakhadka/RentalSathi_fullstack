@@ -9,24 +9,90 @@ import {
   Select,
   Typography,
   SelectChangeEvent,
+  IconButton,
+  Pagination,
+  CircularProgress,
 } from "@mui/material";
+import NOLISTING from "/public/assets/NOLISTING.jpg";
+import { SearchRounded } from "@mui/icons-material";
+import { useMutation } from "@tanstack/react-query";
+import axiosInstance from "@/lib/axios.instance";
+
+import { IPropertyList } from "./CardContainerLandlord";
+import PropertyCard from "./PropertyCard";
+import Image from "next/image";
+
+import CardContainerTenant from "./CardContainerTenant";
+
+interface ISortValues {
+  category: string;
+  sortby: string;
+  page: number;
+  limit: number;
+}
 
 const TenantContainer = () => {
-  const [keyword, setKeyword] = useState<string>("");
-  const [location, setLocation] = useState<string>("");
-  const [filter, setFilter] = useState<string>("");
+  // Added missing states:
+  const [category, setCategory] = useState<string>("");
+  const [sortby, setSortby] = useState<string>(""); // your `filter` renamed to `sortby` for consistency
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [hasSearched, setHasSearched] = useState(false);
 
   const handleFilterChange = (event: SelectChangeEvent) => {
-    setFilter(event.target.value);
+    setSortby(event.target.value);
   };
 
-  const handleLocationChange = (event: SelectChangeEvent) => {
-    setLocation(event.target.value);
+  // Added missing category handler
+  const handleCategoryChange = (event: SelectChangeEvent) => {
+    setCategory(event.target.value);
   };
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setKeyword(event.target.value);
+  // Removed unused location and keyword handlers (optional)
+
+  const { mutate, data, isPending } = useMutation({
+    mutationKey: ["Sort-products", currentPage],
+    mutationFn: async (value: ISortValues) => {
+      const response = await axiosInstance.post(
+        "/property/tenant/sort-list",
+        value
+      );
+      return response;
+    },
+  });
+  if (isPending) {
+    return <CircularProgress color="warning" />;
+  }
+  // Fixed propertyList key name and fallback:
+  const propertyList: IPropertyList[] = data?.data?.propertyList ?? [];
+  const totalPages: number = data?.data?.totalPages ?? 1;
+  if (hasSearched && (!data || propertyList.length === 0)) {
+    return (
+      <div className=" flex flex-col justify-center items-center ">
+        <Image
+          src={NOLISTING}
+          alt="Empty Property Basket"
+          width={400}
+          height={300}
+        />
+
+        <button
+          className="bg-green-900 text-white px-6 py-3 rounded-full text-lg transition-all"
+          onClick={() => setHasSearched(false)}
+        >
+          Keep Exploring.
+        </button>
+      </div>
+    );
+  }
+  // Added handler to fetch with current filters and reset page
+  const handleSearch = () => {
+    setHasSearched(true);
+    setCurrentPage(1);
+    mutate({ category, sortby, page: 1, limit: 3 });
   };
+
+  // Added handler for pagination change (optional)
+  // If you want to add pagination component later, update currentPage and mutate here
 
   // Color variables consistent with tenant theme
   const colors = {
@@ -38,151 +104,172 @@ const TenantContainer = () => {
 
   return (
     <>
-      <div className="h-[80px]" />
-      <div className="p-10 max-w-5xl mx-auto">
-        <Typography
-          variant="h3"
-          fontWeight="bold"
-          textAlign="center"
-          color="#5E8C42"
-          gutterBottom
-          sx={{ userSelect: "none" }}
-        >
-          LET&apos;S FIND YOUR <br />
-          DREAM HOME.
-        </Typography>
-
-        <Box
-          sx={{
-            backgroundColor: colors.primaryOrangeTransparent,
-            backdropFilter: "blur(10px)",
-            borderRadius: "16px",
-            padding: 4,
-            boxShadow: `0 0 15px ${colors.primaryOrangeTransparent}`,
-            display: "flex",
-            gap: 3,
-            justifyContent: "center",
-            flexWrap: "wrap",
-          }}
-        >
-          {/* Keyword */}
+      <div>
+        <div className="p-10  max-w-3xl mx-auto">
+          <Typography
+            variant="h3"
+            fontWeight="bold"
+            textAlign="center"
+            color="#5E8C42"
+            gutterBottom
+            sx={{ userSelect: "none" }}
+          >
+            LET&apos;S FIND YOUR <br />
+            DREAM HOME.
+          </Typography>
           <Box
             sx={{
-              minWidth: 200,
-              maxWidth: 240,
-              borderRight: { xs: "none", md: "2px solid #A45403" },
-              paddingRight: { md: 3 },
+              backgroundColor: colors.primaryOrangeTransparent,
+              backdropFilter: "blur(10px)",
+              borderRadius: "16px",
+              padding: 4,
+              boxShadow: `0 0 15px ${colors.primaryOrangeTransparent}`,
+              display: "flex",
+              gap: 3,
+              justifyContent: "center",
+              flexWrap: "wrap",
             }}
           >
-            <Typography
-              variant="h6"
-              fontWeight="bold"
-              color={colors.brownText}
-              gutterBottom
+            {/* Category select added */}
+            <Box
+              className="max-w-4xl"
+              sx={{
+                minWidth: 200,
+                maxWidth: 240,
+                borderRight: { xs: "none", md: "2px solid #A45403" },
+                paddingRight: { md: 3 },
+              }}
             >
-              Keyword
-            </Typography>
-            <FormControl fullWidth>
-              <InputLabel id="keyword-select-label" color="warning">
-                Looking for?
-              </InputLabel>
-              <Select
-                labelId="keyword-select-label"
-                id="keyword-select"
-                value={keyword}
-                label="Looking for?"
-                onChange={handleChange}
-                color="warning"
-                sx={{
-                  "&:hover": {
-                    backgroundColor: colors.primaryOrangeTransparent,
-                  },
-                }}
+              <Typography
+                variant="h6"
+                fontWeight="bold"
+                color={colors.brownText}
+                gutterBottom
               >
-                <MenuItem value="villa">Villa</MenuItem>
-                <MenuItem value="apartment">Apartment</MenuItem>
-                <MenuItem value="commercial">Commercial</MenuItem>
-                <MenuItem value="homestay">Homestay</MenuItem>
-                <MenuItem value="flats">Flats</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
+                Category
+              </Typography>
+              <FormControl fullWidth>
+                <InputLabel id="category-select-label" color="warning">
+                  Select Category
+                </InputLabel>
+                <Select
+                  labelId="category-select-label"
+                  id="category-select"
+                  value={category}
+                  label="Select Category"
+                  onChange={handleCategoryChange}
+                  color="warning"
+                  sx={{
+                    "&:hover": {
+                      backgroundColor: colors.primaryOrangeTransparent,
+                    },
+                  }}
+                >
+                  {/* <MenuItem value="">All</MenuItem> */}
+                  <MenuItem value="villa">Villa</MenuItem>
+                  <MenuItem value="apartment">Apartment</MenuItem>
+                  <MenuItem value="commercial">Commercial</MenuItem>
+                  <MenuItem value="homestay">Homestay</MenuItem>
+                  <MenuItem value="flats">Flats</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
 
-          {/* Location */}
-          <Box
-            sx={{
-              minWidth: 200,
-              maxWidth: 240,
-              borderRight: { xs: "none", md: "2px solid #A45403" },
-              paddingRight: { md: 3 },
-            }}
-          >
-            <Typography
-              variant="h6"
-              fontWeight="bold"
-              color={colors.brownText}
-              gutterBottom
-            >
-              Location
-            </Typography>
-            <FormControl fullWidth>
-              <InputLabel id="location-select-label" color="warning">
-                Address?
-              </InputLabel>
-              <Select
-                labelId="location-select-label"
-                id="location-select"
-                value={location}
-                label="Address?"
-                onChange={handleLocationChange}
-                color="warning"
-                sx={{
-                  "&:hover": {
-                    backgroundColor: colors.primaryOrangeTransparent,
-                  },
-                }}
+            {/* Filter/Sort */}
+            <Box sx={{ minWidth: 200, maxWidth: 240 }}>
+              <Typography
+                variant="h6"
+                fontWeight="bold"
+                color={colors.brownText}
+                gutterBottom
               >
-                <MenuItem value="bhaktapur">Bhaktapur</MenuItem>
-                <MenuItem value="lalitpur">Lalitpur</MenuItem>
-                <MenuItem value="kathmandu">Kathmandu</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
+                Filter
+              </Typography>
+              <FormControl fullWidth>
+                <InputLabel id="filter-select-label" color="warning">
+                  Sort By?
+                </InputLabel>
+                <Select
+                  labelId="filter-select-label"
+                  id="filter-select"
+                  value={sortby}
+                  label="Sort By?"
+                  onChange={handleFilterChange}
+                  color="warning"
+                  sx={{
+                    "&:hover": {
+                      backgroundColor: colors.primaryOrangeTransparent,
+                    },
+                  }}
+                >
+                  {/* <MenuItem value="">Default</MenuItem> */}
+                  <MenuItem value="high">Price: High</MenuItem>
+                  <MenuItem value="low">Price: Low</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
 
-          {/* Filter */}
-          <Box sx={{ minWidth: 200, maxWidth: 240 }}>
-            <Typography
-              variant="h6"
-              fontWeight="bold"
-              color={colors.brownText}
-              gutterBottom
+            {/* Search Button */}
+            <IconButton
+              onClick={handleSearch}
+              sx={{
+                backgroundColor: "#C1440E", // Terracotta
+                "&:hover": { backgroundColor: "#9A3107" }, // Darker Terracotta
+                color: "white",
+
+                width: 40,
+                height: 40,
+                alignSelf: "flex-end",
+              }}
             >
-              Filter
-            </Typography>
-            <FormControl fullWidth>
-              <InputLabel id="filter-select-label" color="warning">
-                Sort By?
-              </InputLabel>
-              <Select
-                labelId="filter-select-label"
-                id="filter-select"
-                value={filter}
-                label="Sort By?"
-                onChange={handleFilterChange}
-                color="warning"
-                sx={{
-                  "&:hover": {
-                    backgroundColor: colors.primaryOrangeTransparent,
-                  },
-                }}
-              >
-                <MenuItem value="high">Price: High</MenuItem>
-                <MenuItem value="low">Price: Low</MenuItem>
-                <MenuItem value="average">Price: Average</MenuItem>
-              </Select>
-            </FormControl>
+              <SearchRounded />
+            </IconButton>
           </Box>
-        </Box>
+        </div>
+        {hasSearched && data && (
+          <Box className="flex flex-col justify-center items-center m-8 gap-4 w-full">
+            <Typography
+              variant="h4"
+              fontWeight="bold"
+              color="#C15400"
+              textAlign="center"
+              mt={8}
+            >
+              Find {category} Listings In Your Area.
+            </Typography>
+            <Box className="flex flex-wrap justify-center items-center gap-4">
+              {propertyList.map((item) => (
+                <PropertyCard key={item._id} {...item} />
+              ))}
+            </Box>
+
+            {propertyList.length > 0 && (
+              <Pagination
+                page={currentPage}
+                count={totalPages}
+                color="secondary"
+                onChange={(_, value: number) => {
+                  setCurrentPage(value);
+                  mutate({ category, sortby, page: value, limit: 5 });
+                }}
+              />
+            )}
+          </Box>
+        )}
+        {!hasSearched && (
+          <Box className="flex flex-wrap flex-col gap-12 justify-center  items-center p-2 m-2">
+            <Typography
+              variant="h4"
+              fontWeight="bold"
+              color="#C15400"
+              textAlign="center"
+              mt={8}
+            >
+              Find Home Listings In Your Area.
+            </Typography>
+            <CardContainerTenant />
+          </Box>
+        )}
       </div>
     </>
   );

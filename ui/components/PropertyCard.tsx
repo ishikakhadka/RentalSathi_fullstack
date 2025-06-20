@@ -25,10 +25,10 @@ const PropertyCard = (props: IPropertyList) => {
       >
         <Image
           className="cursor-pointer hover:opacity-90 transition-opacity duration-300"
+          alt={props.title}
           src={props.image ? props.image : ""}
           height={200}
           width={400}
-          alt={props.title}
           priority
         />
 

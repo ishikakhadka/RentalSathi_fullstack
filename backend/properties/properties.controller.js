@@ -1,4 +1,4 @@
-import express from "express";
+import express, { response } from "express";
 import PropertyTable from "./property.model.js";
 import yup from "yup";
 import {
@@ -227,6 +227,71 @@ router.post(
         totalPages,
       });
     } catch (error) {
+      next(error);
+    }
+  }
+);
+
+//filter
+router.post(
+  "/property/tenant/sort-list",
+  isTenant,
+  validateReqBody(paginationSchema), // make sure this validates category and sortby as well
+  async (req, res, next) => {
+    try {
+      const { page, limit, category, sortby } = req.body;
+
+      const pageNum = Math.max(parseInt(page) || 1, 1);
+      const limitNum = Math.max(parseInt(limit) || 10, 1);
+      const skip = (pageNum - 1) * limitNum;
+
+      const matchStage = category
+        ? { category: { $regex: new RegExp(`^${category}$`, "i") } }
+        : {};
+
+      let sortField = "price";
+      let sortValue = 1;
+
+      if (sortby === "high") {
+        sortValue = -1;
+      } else if (sortby === "low") {
+        sortValue = 1;
+      } else {
+        sortField = "_id";
+        sortValue = -1;
+      }
+
+      const totalItems = await PropertyTable.countDocuments(matchStage);
+      const totalPages = Math.ceil(totalItems / limitNum);
+
+      const properties = await PropertyTable.aggregate([
+        { $match: matchStage },
+        { $sort: { [sortField]: sortValue } },
+        { $skip: skip },
+        { $limit: limitNum },
+        {
+          $project: {
+            _id: 1,
+            name: 1,
+            brand: 1,
+            price: 1,
+            quantity: 1,
+            image: 1,
+            seller_id: 1,
+            shortDescription: { $substr: ["$description", 0, 150] },
+          },
+        },
+      ]);
+
+      const response = {
+        message: "property list",
+        propertyList: properties,
+        totalPages,
+      };
+
+      res.status(200).json(response);
+    } catch (error) {
+      console.error("Error in /property/tenant/sort-list:", error); // Print error in console
       next(error);
     }
   }
