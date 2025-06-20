@@ -2,7 +2,6 @@
 import { Box, Chip, Typography } from "@mui/material";
 import Image from "next/image";
 import React from "react";
-import villa from "/public/assets/villa.jpg";
 
 import { IPropertyList } from "../CardContainerLandlord";
 import DeleteProperty from "../DeletePropertyDialog";

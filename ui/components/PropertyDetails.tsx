@@ -11,7 +11,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteProperty from "./DeletePropertyDialog";
-import villa from "/public/assets/villa.jpg";
+
 import { useQuery } from "@tanstack/react-query";
 import axiosInstance from "@/lib/axios.instance";
 import { useParams, useRouter } from "next/navigation";
