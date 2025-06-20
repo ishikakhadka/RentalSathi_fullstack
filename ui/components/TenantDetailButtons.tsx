@@ -1,11 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { Box, Button } from "@mui/material";
 import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
-import ChatBox from "./ChatPopup";
+// import ChatBox from "./ChatPopup";
 
 const TenantDetailButtons = () => {
-  const [showChat, setShowChat] = useState(false);
+  // const [showChat, setShowChat] = useState(false);
 
   return (
     <>
@@ -13,7 +13,7 @@ const TenantDetailButtons = () => {
         <Button
           variant="contained"
           startIcon={<TextsmsOutlinedIcon />}
-          onClick={() => setShowChat(true)}
+          // onClick={() => setShowChat(true)}
           sx={{
             backgroundColor: "#6c2d2d",
             "&:hover": {
@@ -28,8 +28,10 @@ const TenantDetailButtons = () => {
         </Button>
       </Box>
 
-      {/* ChatBox appears when showChat is true */}
-      {/* <ChatBox open={showChat} onClose={() => setShowChat(false)} /> */}
+      {/* Render ChatBox only when showChat is true */}
+      {/* {showChat && (
+        <ChatBox open={showChat} onClose={() => setShowChat(false)} />
+      )} */}
     </>
   );
 };
