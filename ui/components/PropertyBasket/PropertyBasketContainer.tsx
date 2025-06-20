@@ -10,6 +10,7 @@ import Image from "next/image";
 import propertybasket from "/public/assets/propertybasket.png";
 
 export interface IProperty {
+  image?: string;
   _id: string;
   title: string;
   location: string;

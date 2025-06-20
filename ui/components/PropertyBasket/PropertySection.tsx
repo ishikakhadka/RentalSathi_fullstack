@@ -43,8 +43,10 @@ const PropertyBasketPage = (props: IBasketItem) => {
         className="bg-white rounded-2xl shadow-md overflow-hidden transition-transform hover:scale-[1.02] flex flex-col"
       >
         <Image
-          src={villa}
+          src={props.property.image ? props.property.image : villa}
           alt="Property Title"
+          height={200}
+          width={400}
           className="w-full h-48 object-cover"
         />
         <div className="p-4 flex-1 flex flex-col justify-between">
