@@ -203,8 +203,8 @@ const RegisterForm = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             >
-              <MenuItem value="buyer">Buyer</MenuItem>
-              <MenuItem value="seller">Seller</MenuItem>
+              <MenuItem value="landlord">LandLord</MenuItem>
+              <MenuItem value="tenant">Tenant</MenuItem>
             </Select>
             {formik.touched.role && formik.errors.role && (
               <FormHelperText error>{formik.errors.role}</FormHelperText>
