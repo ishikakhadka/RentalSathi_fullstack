@@ -1,3 +1,20 @@
 node_modules/
 backend/node_modules/
 .env
+
+# Latex
+*.aux
+*.txt
+*.fdb_latexmk
+*.fls
+*.lof
+*.out
+*.lot
+*.log
+*.synctex.gz
+*.toc
+*.tex
+
+# Images
+docs/figures
+*.sh
