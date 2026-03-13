@@ -57,10 +57,10 @@ flowchart TD
     J -- "No" --> H
     J -- "Yes" --> K["jwt.sign({ email }, secret, 7d)"]
     K --> L["Return 200 + token + userDetails"]
-    L --> M["Store token & role\nin localStorage"]
+    L --> M["Store token & role \n in localStorage"]
     M --> N{Role?}
-    N -- "landlord" --> O["Navigate to\nLandlord Home"]
-    N -- "tenant" --> P["Navigate to\nTenant Home"]
+    N -- "landlord" --> O["Navigate to \n Landlord Home"]
+    N -- "tenant" --> P["Navigate to \n Tenant Home"]
 ```
 
 ---
@@ -69,8 +69,8 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    Start([Landlord clicks\n"Add Property"]) --> A["Navigate to\n/landlord/add-property"]
-    A --> B["Fill AddPropertyForm\n(title, location, price,\nrooms, category, description, image)"]
+    Start([Landlord clicks \n "Add Property"]) --> A["Navigate to\n/landlord/add-property"]
+    A --> B["Fill AddPropertyForm \n (title, location, price,\nrooms, category, description, image)"]
     B --> C["Client Yup validation"]
     C --> D{Valid?}
     D -- "No" --> E["Show field errors"]
